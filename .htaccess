@@ -1,0 +1,27 @@
+Options +FollowSymLinks
+
+# Ei näita kausta sisu
+Options -Indexes -MultiViews
+
+RewriteEngine On
+
+RewriteBase /login_php_project/
+
+# Logimise ja sessioonidega seotud. 
+# Fail mis peab käituma teisiti
+RewriteCond %{REQUEST_URI} "process.php"
+RewriteRule (.*) $1 [L]
+
+# Kaustad mis käituvad teisiti
+# RewriteRule ^(ckeditor/|kcfinder/)($|/) - [L]
+
+#RewriteCond %{REQUEST_URI} "ckeditor/(.*)" [OR]
+#RewriteCond %{REQUEST_URI} "/kcfinder/(.*)"
+#RewriteRule (.*) $1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteRule ^(.+)\.(php) index.php?%{QUERY_STRING} [L]
